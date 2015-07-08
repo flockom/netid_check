@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'nokogiri'
+require 'open-uri'
+
+account = Nokogiri::HTML(open("http://edwapps.nmff.org/campusdirectory/campuslookup.asmx/LookUp?input=#{ARGV[0]}")).xpath('//account')
+
+if account.any?{|a|a.content == "NU\\#{ARGV[0]}"}
+  puts "true"
+  exit 0
+else
+  puts "false"
+  exit 1
+end
